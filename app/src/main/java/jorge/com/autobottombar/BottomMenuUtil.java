@@ -105,7 +105,7 @@ private static final int MSG_PATH = -1;
 //            radioButton.setCompoundDrawables(null,drawable,null,null);
             radioButton.setBackgroundDrawable(drawable);
 //            radioButton.setBackgroundResource(R.drawable._01saomiaogou);
-            radioButton.setText(text);
+            radioButton.setText("");
           //  layout_gravity
 //            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,SysUtils.dipToPx(context,48));
 //            layoutParams.addRule(Gravity.BOTTOM);
@@ -113,7 +113,7 @@ private static final int MSG_PATH = -1;
 ////            params.gravity =Gravity.BOTTOM;
 //            radioButton.setLayoutParams(params);
         }else {
-            drawable.setBounds(0,0,drawable.getIntrinsicWidth(),drawable.getMinimumHeight());
+            drawable.setBounds(0,0,DimenUtil.dipToPx(context,30),DimenUtil.dipToPx(context,30));
             radioButton.setCompoundDrawables(null,drawable,null,null);
             radioButton.setText(text);
         }
@@ -176,7 +176,7 @@ private static final int MSG_PATH = -1;
         BottomTabInfo bottomTabInfo = new BottomTabInfo();
         Bottom bottom = new Bottom();
         //背景图
-        bottom.backgroundPic = "http://bpic.588ku.com/back_pic/00/04/13/75/281620f66c78c64275a91318911773f0.jpg";
+        bottom.backgroundPic = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1488389806044&di=763cb4d53c2d6f6b8bec7e7b91a6da50&imgtype=0&src=http%3A%2F%2Fimage.tupian114.com%2F20090923%2F10570446.jpg" ;//;http://bpic.588ku.com/back_pic/00/04/13/75/281620f66c78c64275a91318911773f0.jpg";
         List<BottomMenuItem> bottomMenu = bottom.bottomMenu;
 
         BottomMenuItem bottomMenuItem1=

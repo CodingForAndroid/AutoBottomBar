@@ -7,8 +7,12 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import jorge.com.autobottombar.bean.BottomMenuItem;
 import jorge.com.autobottombar.bean.BottomTabInfo;
@@ -56,9 +60,10 @@ public class MainActivity extends Activity {
         RadioButton rb03 = (RadioButton) findViewById(R.id.tab_3);
         RadioButton rb04 = (RadioButton) findViewById(R.id.tab_4);
         RadioButton rb05 = (RadioButton) findViewById(R.id.tab_5);
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.rg);
 
         BottomTabInfo bottomTabInfo = BottomMenuUtil.createData();
-
+        //bottom.backgroundPic = "http://bpic.588ku.com/back_pic/00/04/13/75/281620f66c78c64275a91318911773f0.jpg";
         BottomMenuUtil.onDownLoad(bottomTabInfo.bottom.backgroundPic,handler,this);
 
 
@@ -90,6 +95,7 @@ public class MainActivity extends Activity {
 //        BottomMenuUtil.setBackGround(this,rb03,"/storage/emulated/0/Pictures/womai/1957666421d6810.jpg","/storage/emulated/0/Pictures/womai/41573b5e7d55c6a.jpg","圆孔");
         BottomMenuUtil.setBackGround(this,rb03,"/storage/emulated/0/Pictures/womai/3456ec5a68f1c1a.jpg","/storage/emulated/0/Pictures/womai/5956d53a63909f1.jpg","圆孔");
 //        BottomMenuUtil.setBackGround(this,rb03,"/storage/emulated/0/Pictures/womai/c3ae28f097f1c342e38c4e1cba0d2b76.jpg","/storage/emulated/0/Pictures/womai/c3ae28f097f1c342e38c4e1cba0d2b76.jpg","圆孔");
-
+        DimenUtil.showImageOnCustomView(this,"/storage/emulated/0/Pictures/womai/timg?image&quality=80&size=b9999_10000&sec=1488389806044&di=763cb4d53c2d6f6b8bec7e7b91a6da50&imgtype=0&src=http%3A%2F%2Fimage.jpg",radioGroup);
+        ///storage/emulated/0/Pictures/womai/281620f66c78c64275a91318911773f0.jpg
     }
 }
