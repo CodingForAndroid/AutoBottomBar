@@ -105,7 +105,7 @@ private static final int MSG_PATH = -1;
 //            radioButton.setCompoundDrawables(null,drawable,null,null);
             radioButton.setBackgroundDrawable(drawable);
 //            radioButton.setBackgroundResource(R.drawable._01saomiaogou);
-            radioButton.setText(text);
+            radioButton.setText("");
           //  layout_gravity
 //            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,SysUtils.dipToPx(context,48));
 //            layoutParams.addRule(Gravity.BOTTOM);
@@ -113,7 +113,7 @@ private static final int MSG_PATH = -1;
 ////            params.gravity =Gravity.BOTTOM;
 //            radioButton.setLayoutParams(params);
         }else {
-            drawable.setBounds(0,0,drawable.getIntrinsicWidth(),drawable.getMinimumHeight());
+            drawable.setBounds(0,0,DimenUtil.dipToPx(context,30),DimenUtil.dipToPx(context,30));
             radioButton.setCompoundDrawables(null,drawable,null,null);
             radioButton.setText(text);
         }
@@ -176,7 +176,7 @@ private static final int MSG_PATH = -1;
         BottomTabInfo bottomTabInfo = new BottomTabInfo();
         Bottom bottom = new Bottom();
         //背景图
-        bottom.backgroundPic = "http://bpic.588ku.com/back_pic/00/04/13/75/281620f66c78c64275a91318911773f0.jpg";
+        bottom.backgroundPic = "http://img05.tooopen.com/images/20150202/sy_80219211654.jpg" ;//;http://bpic.588ku.com/back_pic/00/04/13/75/281620f66c78c64275a91318911773f0.jpg";
         List<BottomMenuItem> bottomMenu = bottom.bottomMenu;
 
         BottomMenuItem bottomMenuItem1=
