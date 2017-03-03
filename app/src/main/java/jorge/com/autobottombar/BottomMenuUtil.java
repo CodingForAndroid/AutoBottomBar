@@ -12,8 +12,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.RadioButton;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.FutureTarget;
+import com.bumptech.glide.request.target.Target;
+
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import jorge.com.autobottombar.bean.Bottom;
 import jorge.com.autobottombar.bean.BottomMenuItem;
@@ -25,15 +31,15 @@ import jorge.com.autobottombar.bean.BottomTabInfo;
 
 public class BottomMenuUtil {
 
-public static long delayTime = 1000L;
-private static final int MSG_VISIBLE = 1;
-private static final int MSG_ERROR = 0;
-private static final int MSG_PATH = -1;
+    public static long delayTime = 1000L;
+    private static final int MSG_VISIBLE = 1;
+    private static final int MSG_ERROR = 0;
+    private static final int MSG_PATH = -1;
     private static Drawable drawableDefault;
     private static Drawable drawableChecked;
 
 
-    public static void setBackGround(Context context, RadioButton radioButton , String pathDefault , String pathChecked, String text){
+    public static void setBackGround(Context context, RadioButton radioButton, String pathDefault, String pathChecked, String text) {
         StateListDrawable drawable = new StateListDrawable();
 //        try {
 //            Bitmap  bitmap = Glide.with(context)
@@ -66,12 +72,12 @@ private static final int MSG_PATH = -1;
         drawableChecked = new BitmapDrawable(loadImage(pathChecked));
 
 //        Bitmap bitmap = ImageUtils.loadImage(pathDefault);
-        Log.e("setBackGround","bitmap = null?"+bitmap);
+        Log.e("setBackGround", "bitmap = null?" + bitmap);
 
         //Non focused states
         drawable.addState(new int[]{android.R.attr.state_checked},
                 drawableChecked);
-        drawable.addState(new int[]{ - android.R.attr.state_checked},
+        drawable.addState(new int[]{-android.R.attr.state_checked},
                 drawableDefault);
         //Focused states
 //        drawable.addState(new int[]{android.R.attr.state_checked,android.R.attr.state_focused,android.R.attr.state_selected, android.R.attr.state_pressed},
@@ -93,11 +99,11 @@ private static final int MSG_PATH = -1;
 //        height = height == 0 ? drawable.getIntrinsicHeight() : height;
 //        drawable.setBounds(0, 0, width, height);
 
-        if("圆孔".equals(text)){
+        if ("圆孔".equals(text)) {
             int width = radioButton.getWidth();
             int height = radioButton.getHeight();
-            Log.e("BottomMenuUtil","width="+drawable.getIntrinsicWidth());
-            Log.e("BottomMenuUtil","height="+drawable.getMinimumHeight());
+            Log.e("BottomMenuUtil", "width=" + drawable.getIntrinsicWidth());
+            Log.e("BottomMenuUtil", "height=" + drawable.getMinimumHeight());
 //            Drawable drawale = context.getResources().getDrawable(R.drawable.ic_launcher);
 //            drawable.setBounds(0,0,74,74*4);
 //            drawable.setBounds(0,0,SysUtils.dipToPx(context,49),SysUtils.dipToPx(context,80));
@@ -106,15 +112,15 @@ private static final int MSG_PATH = -1;
             radioButton.setBackgroundDrawable(drawable);
 //            radioButton.setBackgroundResource(R.drawable._01saomiaogou);
             radioButton.setText("");
-          //  layout_gravity
+            //  layout_gravity
 //            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,SysUtils.dipToPx(context,48));
 //            layoutParams.addRule(Gravity.BOTTOM);
 //            RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, SysUtils.dipToPx(context, 80));
 ////            params.gravity =Gravity.BOTTOM;
 //            radioButton.setLayoutParams(params);
-        }else {
-            drawable.setBounds(0,0,DimenUtil.dipToPx(context,30),DimenUtil.dipToPx(context,30));
-            radioButton.setCompoundDrawables(null,drawable,null,null);
+        } else {
+            drawable.setBounds(0, 0, DimenUtil.dipToPx(context, 30), DimenUtil.dipToPx(context, 30));
+            radioButton.setCompoundDrawables(null, drawable, null, null);
             radioButton.setText(text);
         }
 
@@ -123,10 +129,31 @@ private static final int MSG_PATH = -1;
 //        imageView.setImageBitmap(bitmap);
 //        imageView.setImageBitmap(bitmap);
     }
+
     /**
      * 启动图片下载线程
      */
-    public static void onDownLoad(String url, final Handler handler, Context context) {
+    public static void onDownLoad(final String url, final Handler handler, final Context context) {
+
+        new Thread() {
+            @Override
+            public void run() {
+                FutureTarget<File> future = Glide.with(context)
+                        .load(url)
+                        .downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
+                try {
+                    File cacheFile = future.get();
+                    String path = cacheFile.getAbsolutePath();
+                    Log.e("InterruptedException", " path = "+path);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
+
         DownLoadImageService service = new DownLoadImageService(context,
                 url,
                 new ImageDownLoadCallBack() {
@@ -146,13 +173,13 @@ private static final int MSG_PATH = -1;
                         message.what = MSG_PATH;
                         message.obj = fileName;
                         Bundle data = new Bundle();
-                        data.putString("url_key",url);
-                        data.putString("file_path",fileName);
+                        data.putString("url_key", url);
+                        data.putString("file_path", fileName);
                         message.setData(data);
                         handler.sendMessageDelayed(message, delayTime);
                         int i = url.lastIndexOf("/");
-                        String[] split = url.substring(i+1, url.length() - 1).split("\\.");
-                        Log.e("onDownLoadSuccess"," url = "+url +"   fileName ="+fileName +"  split[0]="+split[0]) ;
+                        String[] split = url.substring(i + 1, url.length() - 1).split("\\.");
+                        Log.e("onDownLoadSuccess", " url = " + url + "   file_path =" + fileName + "  split[0]=" + split[0]);
 
                     }
 
@@ -170,26 +197,24 @@ private static final int MSG_PATH = -1;
     }
 
 
-
-
-    public static BottomTabInfo createData(){
+    public static BottomTabInfo createData() {
         BottomTabInfo bottomTabInfo = new BottomTabInfo();
         Bottom bottom = new Bottom();
         //背景图
-        bottom.backgroundPic = "http://img05.tooopen.com/images/20150202/sy_80219211654.jpg" ;//;http://bpic.588ku.com/back_pic/00/04/13/75/281620f66c78c64275a91318911773f0.jpg";
+        bottom.backgroundPic = "http://img05.tooopen.com/images/20150202/sy_80219211654.jpg";//;http://bpic.588ku.com/back_pic/00/04/13/75/281620f66c78c64275a91318911773f0.jpg";
         List<BottomMenuItem> bottomMenu = bottom.bottomMenu;
 
-        BottomMenuItem bottomMenuItem1=
+        BottomMenuItem bottomMenuItem1 =
 
 
                 new BottomMenuItem("微信",
-                "http://bpic.588ku.com/element_pic/00/91/37/6456f169194d862.jpg",
-                "http://bpic.588ku.com/element_pic/00/38/86/1256d5a3dda7758.jpg",
-                "",
-                "",
-                "0",
-                "",
-                "");
+                        "http://bpic.588ku.com/element_pic/00/91/37/6456f169194d862.jpg",
+                        "http://bpic.588ku.com/element_pic/00/38/86/1256d5a3dda7758.jpg",
+                        "",
+                        "",
+                        "0",
+                        "",
+                        "");
 
         BottomMenuItem bottomMenuItem2 =
 
@@ -245,40 +270,37 @@ private static final int MSG_PATH = -1;
         bottom.bottomMenu.add(bottomMenuItem5);
         bottomTabInfo.bottom = bottom;
 
-        return  bottomTabInfo ;
+        return bottomTabInfo;
     }
 
 
-
-    static  boolean isFolderExists(String strFolder)
-    {
+    static boolean isFolderExists(String strFolder) {
         File file = new File(strFolder);
 
-        if (!file.exists())
-        {
-                return false;
+        if (!file.exists()) {
+            return false;
         }
         return true;
     }
 
     /**
      * 加载bitmap
+     *
      * @param fileName
      * @return
      */
-    private  static Bitmap loadImage(String fileName){
-        Log.e("setBackGround","253"+ fileName  +  "SdcardUtils.isMount() ="+SdcardUtils.isMount() + "SdcardUtils.root() ="+SdcardUtils.root());
+    private static Bitmap loadImage(String fileName) {
+        Log.e("setBackGround", "253" + fileName + "SdcardUtils.isMount() =" + SdcardUtils.isMount() + "SdcardUtils.root() =" + SdcardUtils.root());
         Bitmap bitmap = null;
         if (fileName != null && fileName.length() > 0 && SdcardUtils.isMount()) {
             if (new File(fileName).exists()) {
                 bitmap = BitmapFactory.decodeFile(fileName);
-                Log.e("setBackGround","258");
+                Log.e("setBackGround", "258");
             }
         }
-        Log.e("setBackGround","261");
+        Log.e("setBackGround", "261");
         return bitmap;
     }
-
 
 
 }

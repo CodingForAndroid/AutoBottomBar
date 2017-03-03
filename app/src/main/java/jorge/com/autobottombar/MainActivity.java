@@ -74,18 +74,6 @@ public class MainActivity extends Activity {
             BottomMenuUtil.onDownLoad(choosePic,handler,this);
             BottomMenuUtil.onDownLoad(defaultPic,handler,this);
             // 如果存在 则 加载 导航
-            //fileName =/storage/emulated/0/Pictures/womai/6456f169194d862.jpg
-            //fileName =/storage/emulated/0/Pictures/womai/1256d5a3dda7758.jpg
-
-            //fileName =/storage/emulated/0/Pictures/womai/3056ec5a38e3705.jpg
-            //fileName =/storage/emulated/0/Pictures/womai/13573af0bb11835.jpg
-
-
-            //fileName =/storage/emulated/0/Pictures/womai/3456ec5a68f1c1a.jpg
-            //fileName =/storage/emulated/0/Pictures/womai/5956d53a63909f1.jpg
-
-            //fileName =/storage/emulated/0/Pictures/womai/1957666421d6810.jpg
-            //fileName =/storage/emulated/0/Pictures/womai/41573b5e7d55c6a.jpg
         }
 
         BottomMenuUtil.setBackGround(this,rb01,"/storage/emulated/0/Pictures/womai/6456f169194d862.jpg","/storage/emulated/0/Pictures/womai/1256d5a3dda7758.jpg","微信");
