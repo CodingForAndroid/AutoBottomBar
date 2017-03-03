@@ -1,6 +1,7 @@
 package jorge.com.autobottombar;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -75,6 +76,8 @@ public class BottomMenuUtil {
         Log.e("setBackGround", "bitmap = null?" + bitmap);
 
         //Non focused states
+
+
         drawable.addState(new int[]{android.R.attr.state_checked},
                 drawableChecked);
         drawable.addState(new int[]{-android.R.attr.state_checked},
@@ -130,6 +133,17 @@ public class BottomMenuUtil {
 //        imageView.setImageBitmap(bitmap);
     }
 
+    /** 对TextView设置不同状态时其文字颜色。 */
+    private ColorStateList createColorStateList( int chooseColor, int defaultColor) {
+        int[] colors = new int[] { chooseColor ,defaultColor};
+        int[][] states = new int[2][];
+        states[0] = new int[] { android.R.attr.state_checked };
+        states[1] = new int[] { -android.R.attr.state_checked };
+        ColorStateList colorList = new ColorStateList(states, colors);
+        return colorList;
+    }
+
+
     /**
      * 启动图片下载线程
      */
@@ -145,6 +159,11 @@ public class BottomMenuUtil {
                     File cacheFile = future.get();
                     String path = cacheFile.getAbsolutePath();
                     Log.e("InterruptedException", " path = "+path);
+                    Bitmap bitmap = loadImage(path);
+                    Message msg =Message.obtain();
+                    msg.what = 4;
+                    msg.obj = bitmap;
+                    handler.sendMessage(msg);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
@@ -202,7 +221,6 @@ public class BottomMenuUtil {
         Bottom bottom = new Bottom();
         //背景图
         bottom.backgroundPic = "http://img05.tooopen.com/images/20150202/sy_80219211654.jpg";//;http://bpic.588ku.com/back_pic/00/04/13/75/281620f66c78c64275a91318911773f0.jpg";
-        List<BottomMenuItem> bottomMenu = bottom.bottomMenu;
 
         BottomMenuItem bottomMenuItem1 =
 

@@ -1,6 +1,7 @@
 package jorge.com.autobottombar;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Message;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -38,22 +40,27 @@ public class MainActivity extends Activity {
                     Log.e("Tab2Activity"," file_path =" +fileName +" url = "+ url);
                     boolean folderExists = BottomMenuUtil.isFolderExists(fileName);
                     Log.e("Tab2Activity","folderExists="+folderExists +" fileName =" +fileName);
-
-
-
-                    //fileName =/storage/emulated/0/Pictures/womai/c3ae28f097f1c342e38c4e1cba0d2b76.jpg
-                    //fileName =/storage/emulated/0/Pictures/womai/281620f66c78c64275a91318911773f0.jpg
-                    //fileName =/storage/emulated/0/Pictures/womai/c10c7c9b9e332e8f26cf996d8788e97b.jpg
-
-
+                    break;
+                case 4:
+//                    Bitmap bitmap = loadImage(path);
+//                    Message msg =Message.obtain();
+//                    msg.what = 4;
+                    Bitmap bitmap = (Bitmap) msg.obj;
+                    imageBit.setImageBitmap(bitmap);
                     break;
             }
         }
     };
+    private ImageView imageBit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        imageBit = (ImageView) findViewById(R.id.imageBitmap);
+
 
         RadioButton rb01 = (RadioButton) findViewById(R.id.tab_1);
         RadioButton rb02 = (RadioButton) findViewById(R.id.tab_2);

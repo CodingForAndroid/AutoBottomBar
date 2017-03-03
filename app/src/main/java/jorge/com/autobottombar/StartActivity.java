@@ -28,7 +28,7 @@ public class StartActivity extends AppCompatActivity {
         // 背景是否下载成功
         boolean has_download_backgroundPic = sp.getBoolean("backgroundPic", false);
         if(has_download_backgroundPic&&hasDownloadIcon(bottomTabInfo)){
-                // 可以再MainActivity 中展示下载的图标。
+             // 可以再MainActivity 中展示下载的图标。
             Intent intent = new Intent(this,MainActivity.class);
             intent.putExtra("show_old_bar",false);
             startActivity(intent);
