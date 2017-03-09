@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
@@ -131,10 +132,13 @@ public class BottomMenuUtil {
 //        rb.setba
 //        imageView.setImageBitmap(bitmap);
 //        imageView.setImageBitmap(bitmap);
+//        createColorStateList(Color.parseColor("#ffffff"),ffffff);
+//        Color.parseColor()
+
     }
 
     /** 对TextView设置不同状态时其文字颜色。 */
-    private ColorStateList createColorStateList( int chooseColor, int defaultColor) {
+    private static  ColorStateList createColorStateList( int chooseColor, int defaultColor) {
         int[] colors = new int[] { chooseColor ,defaultColor};
         int[][] states = new int[2][];
         states[0] = new int[] { android.R.attr.state_checked };

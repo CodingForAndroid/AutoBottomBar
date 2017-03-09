@@ -72,7 +72,7 @@ public class DownLoadImageService implements Runnable {
         Log.e("onDownLoadSuccess"," url = "+url +"   fileName ="+fileName +"  split[0]="+split[0]) ;
 //        fileName = System.currentTimeMillis() + ".jpg";
         fileName = split[0]+ ".jpg";
-
+        ImageUtils.saveImage(bmp,"com.womai/"+fileName);
         currentFile = new File(appDir, fileName);
         FileOutputStream fos = null;
         try {
